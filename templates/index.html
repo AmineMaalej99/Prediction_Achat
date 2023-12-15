@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction d'achat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KMPX7Nk0UFAIgaHF1SjP4HT0lcmVwbYMybq50RFkuc8p6F2WZFYU0slM6oD0TXznRTDcZgekgBeZuK1gUuXFrA==" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style pour le bouton "Prédire" avec icônes */
+        .button-with-icon {
+            background-color: #008000; /* Vert */
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Changement de couleur au survol pour le bouton "Prédire" avec icônes */
+        .button-with-icon:hover {
+            background-color: #006400; /* Vert foncé au survol */
+        }
+
+        /* Ajoutez de l'espace entre l'icône et le texte */
+        .button-with-icon i {
+            margin-right: 5px;
+        }
+
+        /* Style pour le bouton "Visualiser les données" avec icônes */
+        .button-with-arrow {
+            display: inline-block;
+            background-color: #004080; /* Bleu foncé */
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Changement de couleur au survol pour le bouton "Visualiser les données" avec icônes */
+        .button-with-arrow:hover {
+            background-color: #002040; /* Bleu plus foncé au survol */
+        }
+    </style>
+</head>
+<body>
+    {% if session.logged_in %}
+        <h1>Prédiction d'achat</h1>
+        <form method="post" action="/">
+            <label for="age">Âge :</label>
+            <input type="number" name="age" required><br>
+
+            <label for="salaire">Salaire :</label>
+            <input type="number" name="salaire" required><br>
+
+            <!-- Bouton "Prédire" avec icônes -->
+            <button type="submit" class="button-with-icon">
+                Prédire <i class="fas fa-search"></i>
+            </button>
+        </form>
+
+        {% if result %}
+            <p class="result-achat">Résultat de la prédiction : {{ result }}</p>
+        {% endif %}
+
+        <!-- Bouton "Visualiser les données" avec icônes -->
+        <a href="{{ url_for('visualiser_donnees') }}" class="button-with-arrow">Visualiser les données <i class="fas fa-arrow-right"></i></a>
+
+    {% else %}
+        <p>Vous devez vous connecter pour accéder à cette page. Redirection...</p>
+        <script>
+            setTimeout(function () {
+                window.location.href = "{{ url_for('login') }}";
+            }, 2000);
+        </script>
+    {% endif %}
+</body>
+</html>

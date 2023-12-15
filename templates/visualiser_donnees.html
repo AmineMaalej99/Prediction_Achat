@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des Données</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualisation des Données</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Âge</th>
+                <th>Salaire</th>
+                <th>Résultat de Prédiction</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for donnee in donnees %}
+                <tr>
+                    <td>{{ donnee.age }}</td>
+                    <td>{{ donnee.salaire }}</td>
+                    <td>
+                        {% if donnee.prediction_result == '0' %}
+                            Produit non acheté
+                        {% elif donnee.prediction_result == '1' %}
+                            Produit acheté
+                        {% else %}
+                            {{ donnee.prediction_result }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
